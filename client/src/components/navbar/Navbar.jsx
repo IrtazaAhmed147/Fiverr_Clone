@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./Navbar.scss";
 
 function Navbar() {
   const [active, setActive] = useState(false);
   const [open, setOpen] = useState(false);
 
+console.log(active);
 
   const isActive = () => {
     window.scrollY > 0 ? setActive(true) : setActive(false);
@@ -18,6 +19,8 @@ function Navbar() {
     };
   }, []);
 
+  const {pathname} = useLocation()
+
   // const currentUser = null
 
   const currentUser = {
@@ -27,10 +30,10 @@ function Navbar() {
   };
 
   return (
-    <div className={active  ? "navbar active" : "navbar"}>
+    <div className={active || pathname !== '/' ? "navbar active" : "navbar"}>
       <div className="container">
         <div className="logo">
-          <Link className={active ? 'linkactive' : 'link'} to="/">
+          <Link className='link' to="/">
             <span className="text">fiverr</span>
           </Link>
           <span className="dot">.</span>
@@ -79,7 +82,7 @@ function Navbar() {
           )}
         </div>
       </div>
-      {active && (
+      {(active ||  pathname !== '/') && (
         <>
           <hr />
           <div className="menu">
