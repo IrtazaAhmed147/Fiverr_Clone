@@ -24,16 +24,19 @@ function Gig() {
       )
   })
 
+  const userId = data?.userId
+
     
     const { isPending: isPendingUser, error: errorUser, data: dataUser } = useQuery({
       queryKey: ["user"],
       queryFn: () =>
-        newRequest.get(`/users/${data.userId}`).then((res) => {
+        newRequest.get(`/users/${userId}`).then((res) => {
           console.log(res);
   
           return res.data
         }).catch((err) => console.log(err)
-        )
+        ),
+        enabled: !!userId,
     })
 
   return (
